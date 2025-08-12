@@ -1,0 +1,60 @@
+<div class="bg-slate-50 p-8 rounded-2xl">
+  <mat-card class="max-w-md mx-auto shadow-lg rounded-2xl">
+    <mat-card-header>
+      <mat-card-title class="text-xl font-semibold">Entrar</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+          @if (form.controls.email.hasError('required')) {
+          <mat-error>Email é obrigatório</mat-error>
+          } @else if (form.controls.email.hasError('email')) {
+          <mat-error>Email inválido</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Senha -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="password" type="password" />
+          @if (form.controls.password.hasError('required')) {
+          <mat-error>Senha é obrigatória</mat-error>
+          } @else if (form.controls.password.hasError('minlength')) {
+          <mat-error>Mínimo de 6 caracteres</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Erro geral -->
+        @if (errorMessage()) {
+        <mat-error class="block text-red-500">{{ errorMessage() }}</mat-error>
+        }
+
+        <!-- Botão -->
+        <button
+          mat-raised-button
+          color="primary"
+          class="w-full py-2"
+          [disabled]="loading()"
+        >
+          @if (loading()) {
+          <mat-progress-spinner
+            mode="indeterminate"
+            diameter="20"
+          ></mat-progress-spinner>
+          } @else { Entrar }
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card-footer class="text-center mt-4">
+    <p>
+      Não tem uma conta?
+      <a routerLink="/auth/register" class="text-blue-600">Registrar</a>
+    </p>
+  </mat-card-footer>
+</div>
