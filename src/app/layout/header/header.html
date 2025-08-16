@@ -1,16 +1,22 @@
-<div class="w-full h-16 bg-gray-800 text-white flex items-center justify-between px-4">
-    
-    <div class="flex items-center gap-3">
-        <img src="logo.png" alt="Logotipo Loja CaixaVerso" class="h-10">
-        <span class="text-xl font-bold">{{ title }}</span>
+<div
+  class="w-full h-16 bg-gray-800 text-white flex items-center justify-between px-4"
+>
+  <div class="flex items-center gap-3">
+    <img src="logo.png" alt="Logotipo Loja CaixaVerso" class="h-10" />
+    <span class="text-xl font-bold">{{ title }}</span>
+  </div>
+  <div class="text-sm">
+    <span>{{ subtitle }}</span>
+  </div>
+  <nav class="flex space-x-4">
+    @if (userSignal()) {
+    <div class="flex items-center gap-2">
+      <span>{{ userSignal()?.name }}</span>
+      <button mat-button (click)="logout()">Sair</button>
     </div>
-    <div class="text-sm">
-        <span>{{ subtitle }}</span>
-    </div>
-    <nav class="flex space-x-4">
-        <a href="/" class="hover:underline">Home</a>
-        <a href="/produtos" class="hover:underline">Produtos</a>
-        <a href="/sobre" class="hover:underline">Sobre</a>
-        <a href="/contato" class="hover:underline">Contato</a>
-    </nav>
+    } @else {
+
+    <button mat-button [routerLink]="['/auth/login']">Entrar</button>
+    }
+  </nav>
 </div>

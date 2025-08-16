@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth-service';
 import { LoginDto } from '../../../shared/dtos/login-dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class Login {
 
   protected loading = signal(false);
   protected errorMessage = signal('');
+  protected router = inject(Router);
 
   constructor() {}
 
@@ -40,7 +42,7 @@ export class Login {
     this.authService.login(loginData).subscribe({
       next: () => {
         this.loading.set(false);
-        // Redirecionar ou mostrar sucesso
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.loading.set(false);

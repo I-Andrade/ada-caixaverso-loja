@@ -1,0 +1,151 @@
+{
+  "users": [
+    {
+      "id": "me",
+      "name": "Admin Admin",
+      "email": "admin@example.com",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "id": "1",
+      "name": "Alice Silva",
+      "email": "alice1@example.com",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Bruno Costa",
+      "email": "bruno2@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "3",
+      "name": "Carla Dias",
+      "email": "carla3@example.com",
+      "password": "123456",
+      "role": "moderator"
+    },
+    {
+      "id": "4",
+      "name": "Daniel Rocha",
+      "email": "daniel4@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "5",
+      "name": "Eduarda Martins",
+      "email": "eduarda5@example.com",
+      "password": "123456",
+      "role": "guest"
+    },
+    {
+      "id": "6",
+      "name": "Felipe Almeida",
+      "email": "felipe6@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "7",
+      "name": "Gabriela Santos",
+      "email": "gabriela7@example.com",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "id": "8",
+      "name": "Henrique Lopes",
+      "email": "henrique8@example.com",
+      "password": "123456",
+      "role": "moderator"
+    },
+    {
+      "id": "9",
+      "name": "Isabela Ribeiro",
+      "email": "isabela9@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "10",
+      "name": "João Pedro",
+      "email": "joao10@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "11",
+      "name": "Karina Teixeira",
+      "email": "karina11@example.com",
+      "password": "123456",
+      "role": "guest"
+    },
+    {
+      "id": "12",
+      "name": "Lucas Pereira",
+      "email": "lucas12@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "13",
+      "name": "Mariana Souza",
+      "email": "mariana13@example.com",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "id": "14",
+      "name": "Nicolas Castro",
+      "email": "nicolas14@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "15",
+      "name": "Olívia Mendes",
+      "email": "olivia15@example.com",
+      "password": "123456",
+      "role": "moderator"
+    },
+    {
+      "id": "16",
+      "name": "Paulo Henrique",
+      "email": "paulo16@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "17",
+      "name": "Quésia Lima",
+      "email": "quesia17@example.com",
+      "password": "123456",
+      "role": "guest"
+    },
+    {
+      "id": "18",
+      "name": "Ricardo Ramos",
+      "email": "ricardo18@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "19",
+      "name": "Sofia Nunes",
+      "email": "sofia19@example.com",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "20",
+      "name": "Thiago Araújo",
+      "email": "thiago20@example.com",
+      "password": "123456",
+      "role": "admin"
+    }
+  ]
+}

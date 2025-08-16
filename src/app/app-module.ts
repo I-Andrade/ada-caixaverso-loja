@@ -5,16 +5,17 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
-import {
-  HttpClient,
-  HttpClientModule,
-  provideHttpClient,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './auth-interceptor';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [App, Header, Footer],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [provideBrowserGlobalErrorListeners(), provideHttpClient()],
+  imports: [BrowserModule, AppRoutingModule, MatButtonModule],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptors([authInterceptor])),
+  ],
   bootstrap: [App],
 })
 export class AppModule {}

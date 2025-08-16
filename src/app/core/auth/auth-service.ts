@@ -13,17 +13,33 @@ import { API_ENDPOINTS } from '../constants/api-endpoints-const';
 export class AuthService {
   private http: HttpClient = inject(HttpClient);
 
-  private user = signal<UserModel | null>(null);
   private readonly apiUrl = environment.apiUrl;
 
-  constructor() {}
+  // Usuário
+  private user = signal<UserModel | null>(null);
+  getUserSignal = () => this.user;
+
+  constructor() {
+    const token = localStorage.getItem('auth_token');
+
+    if (token) {
+      this.fetchUser().subscribe();
+    }
+  }
 
   login(data: LoginDto) {
     return this.http
-      .post(`${this.apiUrl}${API_ENDPOINTS.AUTH.LOGIN}`, data, {
-        withCredentials: true,
-      })
-      .pipe(switchMap(() => this.fetchUser()));
+      .post<{ token: string }>(
+        `${this.apiUrl}${API_ENDPOINTS.AUTH.LOGIN}`,
+        data,
+        { withCredentials: true }
+      )
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('auth_token', response.token);
+        }),
+        switchMap(() => this.fetchUser())
+      );
   }
 
   logout() {
@@ -33,21 +49,30 @@ export class AuthService {
         {},
         { withCredentials: true }
       )
-      .pipe(tap(() => this.user.set(null)));
+      .pipe(
+        tap(() => {
+          this.user.set(null);
+          localStorage.removeItem('auth_token');
+        })
+      );
   }
 
   register(data: RegisterDto) {
     return this.http.post(`${this.apiUrl}${API_ENDPOINTS.AUTH.REGISTER}`, data);
   }
 
+  // Função para buscar o usuário com o token
   fetchUser() {
+    // Limpa a variável user antes de buscar
+    this.user.set(null);
     return this.http
       .get<UserModel>(`${this.apiUrl}${API_ENDPOINTS.AUTH.ME}`, {
         withCredentials: true,
       })
-      .pipe(tap((user) => this.user.set(user)));
+      .pipe(
+        tap((user) => {
+          this.user.set(user);
+        })
+      );
   }
-
-  getUser = computed(() => this.user());
-  isLoggedIn = computed(() => !!this.user());
 }

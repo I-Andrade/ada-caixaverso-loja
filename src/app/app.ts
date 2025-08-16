@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from './core/auth/auth-service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   standalone: false,
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
+  constructor() {}
 }
