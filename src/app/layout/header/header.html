@@ -9,7 +9,7 @@
     <span>{{ subtitle }}</span>
   </div>
   <nav class="flex space-x-4">
-    @if (userSignal()) {
+    @if (isLoggedIn()) {
     <div class="flex items-center gap-2">
       <span>{{ userSignal()?.name }}</span>
       <button mat-button (click)="logout()">Sair</button>

@@ -18,6 +18,7 @@ export class Header implements OnInit {
   subtitle = SUBTITLE;
 
   userSignal = this.authService.getUserSignal();
+  isLoggedIn = this.authService.isLoggedIn;
 
   ngOnInit() {}
 
