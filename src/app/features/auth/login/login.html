@@ -1,7 +1,7 @@
 <div class="bg-slate-50 p-8 rounded-2xl">
   <mat-card class="max-w-md mx-auto shadow-lg rounded-2xl">
     <mat-card-header>
-      <mat-card-title class="text-xl font-semibold">Entrar</mat-card-title>
+      <mat-card-title class="text-xl font-semibold mb-4">Entrar</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -51,10 +51,14 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card-footer class="text-center mt-4">
-    <p>
+  <mat-card-footer class="text-center">
+    <p class="mt-4 text-sm">
       Não tem uma conta?
-      <a routerLink="/auth/register" class="text-blue-600">Registrar</a>
+      <a
+        routerLink="/auth/register"
+        class="text-blue-500 hover:italic hover:text-blue-700"
+        >Registrar</a
+      >
     </p>
   </mat-card-footer>
 </div>
