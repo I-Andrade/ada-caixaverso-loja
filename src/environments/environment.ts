@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3099',
+  apiUsers: 'https://api.escuelajs.co/api/v1',
 };

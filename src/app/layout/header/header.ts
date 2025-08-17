@@ -23,10 +23,7 @@ export class Header implements OnInit {
   ngOnInit() {}
 
   logout = () => {
-    this.authService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/']);
-      },
-    });
+    this.authService.logout();
+    this.router.navigate(['/']);
   };
 }
