@@ -19,6 +19,8 @@ export class AuthService {
   // Usuário
   private user = signal<UserModel | null>(null);
   public isLoggedIn = computed(() => !!this.user());
+  getUserFirstNameSignal = () =>
+    computed(() => this.user()?.name?.split(' ')[0] || '');
 
   getUserSignal = () => this.user;
 
