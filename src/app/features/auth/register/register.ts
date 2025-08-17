@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth-service';
 import { RegisterDto } from '../../../shared/dtos/register-dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ import { RegisterDto } from '../../../shared/dtos/register-dto';
 export class Register {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   loading = signal(false);
   errorMessage = signal('');
@@ -32,11 +34,15 @@ export class Register {
       return;
     }
 
+    const userName = this.form.value.name?.trim() || 'costumer';
+    const encodedName = encodeURIComponent(userName);
+    const avatarUrl = `https://ui-avatars.com/api/?name=${encodedName}&background=random&color=fff&size=128`;
+
     const registerData: RegisterDto = {
       name: this.form.value.name!,
       email: this.form.value.email!,
       password: this.form.value.password!,
-      confirmPassword: this.form.value.confirmPassword!,
+      avatar: avatarUrl,
     };
 
     this.loading.set(true);
@@ -45,7 +51,7 @@ export class Register {
     this.authService.register(registerData).subscribe({
       next: () => {
         this.loading.set(false);
-        // Redirecionar ou mostrar mensagem de sucesso
+        this.router.navigate(['/auth/login']);
       },
       error: (err) => {
         this.loading.set(false);
