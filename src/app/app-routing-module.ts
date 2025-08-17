@@ -8,6 +8,23 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/auth/auth-module').then((m) => m.AuthModule),
   },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('./features/products/products-module').then(
+        (m) => m.ProductsModule
+      ),
+  },
+  {
+    path: '',
+    redirectTo: '/products',
+    pathMatch: 'full',
+  },
+  // {
+  //   path: '**',
+  //   component: NotFoundComponent, // TODO: Implement a NotFoundComponent
+
+  // },
 ];
 
 @NgModule({

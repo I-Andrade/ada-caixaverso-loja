@@ -8,6 +8,13 @@ import { Footer } from './layout/footer/footer';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './auth-interceptor';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { LOCALE_PROVIDER } from './core/constants/app-const';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntlPtBr } from './core/config/mat-paginator-pt-br';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [App, Header, Footer],
@@ -15,6 +22,8 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptors([authInterceptor])),
+    LOCALE_PROVIDER,
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr },
   ],
   bootstrap: [App],
 })
