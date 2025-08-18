@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProductsRoutingModule } from './products-routing-module';
 import { List } from './list/list';
-import { MatCard } from '@angular/material/card';
+import { MatCard, MatCardActions } from '@angular/material/card';
 import {
   MatCardHeader,
   MatCardTitle,
@@ -15,9 +15,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { Card } from './list/card/card';
+import { Details } from './details/details';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [List, Card],
+  declarations: [List, Card, Details],
   imports: [
     CommonModule,
     ProductsRoutingModule,
@@ -30,6 +32,8 @@ import { Card } from './list/card/card';
     MatInputModule,
     MatPaginatorModule,
     MatCardFooter,
+    MatCardActions,
+    MatIconModule,
   ],
 })
 export class ProductsModule {}

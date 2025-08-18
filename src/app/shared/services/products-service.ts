@@ -28,4 +28,10 @@ export class ProductsService {
         })
       );
   }
+
+  getProductById(id: string) {
+    return this.http.get<ProductModel>(
+      `${this.apiProducts}${API_ENDPOINTS.PRODUCTS.DETAILS(id)}`
+    );
+  }
 }
