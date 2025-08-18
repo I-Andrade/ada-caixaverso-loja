@@ -22,27 +22,33 @@
     <mat-card-content class="p-0">
       <p class="mb-2 text-gray-700 text-sm">{{ product()?.description }}</p>
       <div class="flex items-center justify-between mb-2">
-        <span class="text-xl font-semibold text-green-600"
-          >${{ product()?.price }}</span
-        >
-        <span class="flex items-center text-yellow-600">
+        <div class="w-full flex justify-start items-center">
+          <span class="bg-blue-500 text-white px-1 py-0.5 rounded text-right">{{
+            product()?.price | currency : "BRL" : "symbol" : "1.2-2"
+          }}</span>
+        </div>
+        <div class="flex items-center gap-1 text-yellow-600 text-nowrap">
           <mat-icon>star</mat-icon>
-          <span class="ml-1">{{ product()?.rating?.rate }}</span>
-          <span class="ml-2 text-gray-500"
-            >({{ product()?.rating?.count }} reviews)</span
-          >
-        </span>
+          <span>{{ product()?.rating?.rate }}</span>
+
+          <div class="text-gray-500 text-nowrap">
+            ({{ product()?.rating?.count }} avaliações)
+          </div>
+        </div>
       </div>
     </mat-card-content>
-    <mat-card-actions class="mt-4 p-0">
-      <button
-        mat-raised-button
-        color="primary"
-        class="w-full flex items-center justify-center gap-2"
-      >
-        <mat-icon>shopping_cart</mat-icon>
-        Adicionar ao Carrinho
-      </button>
+    <mat-card-actions class="mt-8 p-0">
+      <div class="w-full flex justify-center">
+        <button
+          mat-raised-button
+          color="primary"
+          class="flex items-center justify-center gap-2 cursor-pointer bg-blue-300 hover:bg-blue-700 hover:text-white p-2 rounded-2xl"
+          (click)="addToCart()"
+        >
+          <mat-icon>shopping_cart</mat-icon>
+          Adicionar ao Carrinho
+        </button>
+      </div>
     </mat-card-actions>
   </div>
 

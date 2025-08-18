@@ -1,7 +1,10 @@
 <div
   class="w-full h-16 bg-gray-800 text-white flex items-center justify-between px-4"
 >
-  <div class="flex items-center gap-3">
+  <div
+    class="flex items-center gap-3 cursor-pointer hover:text-blue-500"
+    [routerLink]="['/']"
+  >
     <img src="logo.png" alt="Logotipo Loja CaixaVerso" class="h-10" />
     <span class="text-xl font-bold">{{ title }}</span>
   </div>
@@ -17,11 +20,13 @@
         class="h-8 w-8 rounded-full object-cover"
       />
       <span>{{ userFirstNameSignal() }}</span>
-      <button mat-button (click)="logout()">Sair</button>
+      <button mat-button class="bg-slate-300" (click)="logout()">Sair</button>
     </div>
     } @else {
 
-    <button mat-button [routerLink]="['/auth/login']">Entrar</button>
+    <button mat-button class="bg-slate-300" [routerLink]="['/auth/login']">
+      Entrar
+    </button>
     }
   </nav>
 </div>

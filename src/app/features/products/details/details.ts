@@ -35,4 +35,11 @@ export class Details {
       this.productId.set(params.get('id'));
     });
   }
+
+  addToCart() {
+    const product = this.product();
+    if (product) {
+      window.alert(`Produto "${product.title}" adicionado ao carrinho!`);
+    }
+  }
 }
