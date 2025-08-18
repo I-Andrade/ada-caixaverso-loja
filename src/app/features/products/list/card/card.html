@@ -1,0 +1,22 @@
+@if (product) {
+<mat-card
+  class="bg-gradient-to-b from-white to-blue-200 h-full shadow-white shadow-md"
+>
+  <img
+    mat-card-image
+    [src]="product.image"
+    alt="{{ product.title }}"
+    class="w-full h-46 object-cover object-top"
+  />
+  <mat-card-header>
+    <div class="w-full flex justify-start items-center">
+      <span class="bg-blue-500 text-white px-1 py-0.5 rounded text-right">{{
+        product.price | currency : "BRL" : "symbol" : "1.2-2"
+      }}</span>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="line-clamp-4">{{ product.description }}</p>
+  </mat-card-content>
+</mat-card>
+}

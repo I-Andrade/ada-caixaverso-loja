@@ -1,4 +1,4 @@
-<mat-card class="bg-transparent w-full">
+<mat-card class="bg-transparent">
   <mat-card-header class="w-full">
     <mat-form-field class="w-full">
       <mat-label>Pesquise um produto</mat-label>
@@ -23,31 +23,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
     >
       @for (product of displayedProducts(); track product.id) {
-
-      <mat-card class="bg-gradient-to-b from-white to-blue-200">
-        <img
-          mat-card-image
-          [src]="product.image"
-          alt="{{ product.title }}"
-          class="w-full h-46 object-cover object-top"
-        />
-        <mat-card-header>
-          <mat-card-title>{{ product.title }}</mat-card-title>
-          <mat-card-subtitle
-            ><div class="w-full flex justify-start items-center">
-              <span
-                class="bg-blue-500 text-white px-1 py-0.5 rounded text-right"
-                >{{
-                  product.price | currency : "BRL" : "symbol" : "1.2-2"
-                }}</span
-              >
-            </div></mat-card-subtitle
-          >
-        </mat-card-header>
-        <mat-card-content>
-          <p class="line-clamp-4">{{ product.description }}</p>
-        </mat-card-content>
-      </mat-card>
+      <app-card [product]="product"></app-card>
       }
     </div>
     }

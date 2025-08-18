@@ -14,9 +14,10 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { Card } from './list/card/card';
 
 @NgModule({
-  declarations: [List],
+  declarations: [List, Card],
   imports: [
     CommonModule,
     ProductsRoutingModule,
