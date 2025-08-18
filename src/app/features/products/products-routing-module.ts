@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { List } from './list/list';
 import { Details } from './details/details';
+import { PATHS } from '../../core/constants/app-const';
 
 const routes: Routes = [
   {
-    path: 'list',
+    path: PATHS.LIST,
     component: List,
   },
   {
-    path: 'details/:id',
+    path: PATHS.DETAILS_ID,
     component: Details,
   },
   {
-    path: '',
-    redirectTo: 'list',
+    path: PATHS.THIS,
+    redirectTo: PATHS.LIST,
     pathMatch: 'full',
   },
 ];

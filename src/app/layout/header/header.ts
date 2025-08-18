@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth/auth-service';
-import { SUBTITLE, TITLE } from '../../core/constants/app-const';
+import { PATHS, SUBTITLE, TITLE } from '../../core/constants/app-const';
 import { UserModel } from '../../shared/models/user-model';
 import { Router } from '@angular/router';
 
@@ -16,6 +16,7 @@ export class Header implements OnInit {
 
   title = TITLE;
   subtitle = SUBTITLE;
+  PATHS = PATHS;
 
   userSignal = this.authService.getUserSignal();
   isLoggedIn = this.authService.isLoggedIn;
@@ -25,6 +26,6 @@ export class Header implements OnInit {
 
   logout = () => {
     this.authService.logout();
-    this.router.navigate(['/']);
+    this.router.navigate([PATHS.THIS]);
   };
 }

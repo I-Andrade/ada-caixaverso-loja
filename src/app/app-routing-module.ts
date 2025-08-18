@@ -1,27 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { App } from './app';
+import { PATHS } from './core/constants/app-const';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: PATHS.AUTH,
     loadChildren: () =>
       import('./features/auth/auth-module').then((m) => m.AuthModule),
   },
   {
-    path: 'products',
+    path: PATHS.PRODUCTS,
     loadChildren: () =>
       import('./features/products/products-module').then(
         (m) => m.ProductsModule
       ),
   },
   {
-    path: '',
-    redirectTo: '/products',
+    path: PATHS.THIS,
+    redirectTo: PATHS.PRODUCTS,
     pathMatch: 'full',
   },
   // {
-  //   path: '**',
+  //   path: PATHS.NOT_FOUND,
   //   component: NotFoundComponent, // TODO: Implement a NotFoundComponent
 
   // },

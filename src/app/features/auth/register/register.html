@@ -66,7 +66,11 @@
   <mat-card-footer class="text-center mt-4">
     <p>
       Já tem uma conta?
-      <a routerLink="/auth/login" class="text-blue-600">Entrar</a>
+      <a
+        [routerLink]="[PATHS.BASE, PATHS.AUTH, PATHS.LOGIN]"
+        class="text-blue-600"
+        >Entrar</a
+      >
     </p>
   </mat-card-footer>
 </div>

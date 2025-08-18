@@ -55,7 +55,7 @@
     <p class="mt-4 text-sm">
       Não tem uma conta?
       <a
-        routerLink="/auth/register"
+        [routerLink]="[PATHS.BASE, PATHS.AUTH, PATHS.REGISTER]"
         class="text-blue-500 hover:italic hover:text-blue-700"
         >Registrar</a
       >

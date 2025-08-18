@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth-service';
 import { LoginDto } from '../../../shared/dtos/login-dto';
 import { Router } from '@angular/router';
+import { PATHS } from '../../../core/constants/app-const';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
 export class Login {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+
+  protected PATHS = PATHS;
 
   protected form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -42,7 +45,7 @@ export class Login {
     this.authService.login(loginData).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['/']);
+        this.router.navigate([PATHS.THIS]);
       },
       error: (err) => {
         this.loading.set(false);

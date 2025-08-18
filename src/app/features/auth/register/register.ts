@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth-service';
 import { RegisterDto } from '../../../shared/dtos/register-dto';
 import { Router } from '@angular/router';
+import { PATHS } from '../../../core/constants/app-const';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class Register {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-
+  protected PATHS = PATHS;
   loading = signal(false);
   errorMessage = signal('');
 
@@ -51,7 +52,7 @@ export class Register {
     this.authService.register(registerData).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['/auth/login']);
+        this.router.navigate([PATHS.AUTH, PATHS.LOGIN]);
       },
       error: (err) => {
         this.loading.set(false);

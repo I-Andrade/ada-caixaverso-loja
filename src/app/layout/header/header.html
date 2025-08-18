@@ -3,7 +3,7 @@
 >
   <div
     class="flex items-center gap-3 cursor-pointer hover:text-blue-500"
-    [routerLink]="['/']"
+    [routerLink]="[PATHS.BASE]"
   >
     <img src="logo.png" alt="Logotipo Loja CaixaVerso" class="h-10" />
     <span class="text-xl font-bold">{{ title }}</span>
@@ -24,7 +24,11 @@
     </div>
     } @else {
 
-    <button mat-button class="bg-slate-300" [routerLink]="['/auth/login']">
+    <button
+      mat-button
+      class="bg-slate-300"
+      [routerLink]="[PATHS.BASE, PATHS.AUTH, PATHS.LOGIN]"
+    >
       Entrar
     </button>
     }

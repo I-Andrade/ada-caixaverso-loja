@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ProductModel } from '../../../../shared/models/product-model';
+import { PATHS } from '../../../../core/constants/app-const';
 
 @Component({
   selector: 'app-card',
@@ -9,4 +10,5 @@ import { ProductModel } from '../../../../shared/models/product-model';
 })
 export class Card {
   @Input() product?: ProductModel;
+  protected PATHS = PATHS;
 }

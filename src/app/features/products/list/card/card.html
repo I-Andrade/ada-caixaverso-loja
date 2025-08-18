@@ -1,7 +1,7 @@
 @if (product) {
 <mat-card
   class="bg-gradient-to-b from-white hover:from-blue-700 to-blue-200 h-full shadow-white shadow-md cursor-pointer"
-  [routerLink]="['/products/details', product.id]"
+  [routerLink]="[PATHS.BASE, PATHS.PRODUCTS, PATHS.DETAILS, product.id]"
 >
   <img
     mat-card-image
