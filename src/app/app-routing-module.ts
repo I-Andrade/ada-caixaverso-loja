@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { App } from './app';
 import { PATHS } from './core/constants/app-const';
 
 const routes: Routes = [
@@ -14,6 +13,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/products/products-module').then(
         (m) => m.ProductsModule
+      ),
+  },
+  {
+    path: PATHS.CART,
+    loadChildren: () =>
+      import('./features/shopping-cart/shopping-cart.module').then(
+        (m) => m.ShoppingCartModule
       ),
   },
   {

@@ -26,6 +26,9 @@ export class Login {
   protected errorMessage = signal('');
   protected router = inject(Router);
 
+  protected isLoggedIn = this.authService.isLoggedIn;
+  protected user = this.authService.getUserSignal();
+
   constructor() {}
 
   submit() {
@@ -52,5 +55,10 @@ export class Login {
         this.errorMessage.set(err?.error?.message || 'Erro ao fazer login');
       },
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate([PATHS.LOGIN]);
   }
 }

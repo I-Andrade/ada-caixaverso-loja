@@ -1,9 +1,34 @@
+@if (isLoggedIn()) {
+<div class="bg-slate-50 p-8 rounded-2xl">
+  <mat-card
+    class="max-w-md mx-auto shadow-lg rounded-2xl flex flex-col items-center py-8"
+  >
+    <h2 class="text-xl font-bold text-center mb-4">
+      Você já está identificado em nossa loja
+    </h2>
+    <img
+      [src]="user()?.avatar"
+      alt="Avatar"
+      class="w-24 h-24 rounded-full object-cover mb-4 border-4 border-blue-200"
+    />
+    <div class="text-lg font-semibold mb-2">{{ user()?.name }}</div>
+    <div class="text-sm text-gray-500 mb-6">{{ user()?.email }}</div>
+    <a
+      [routerLink]="[PATHS.BASE, PATHS.PRODUCTS]"
+      class="mb-6 text-blue-600 hover:underline text-sm"
+    >
+      Ir para produtos
+      <span class="material-icons align-middle text-base">arrow_forward</span>
+    </a>
+    <button mat-raised-button color="warn" (click)="logout()">Sair</button>
+  </mat-card>
+</div>
+} @else {
 <div class="bg-slate-50 p-8 rounded-2xl">
   <mat-card class="max-w-md mx-auto shadow-lg rounded-2xl">
     <mat-card-header>
       <mat-card-title class="text-xl font-semibold mb-4">Entrar</mat-card-title>
     </mat-card-header>
-
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
         <!-- Email -->
@@ -16,7 +41,6 @@
           <mat-error>Email inválido</mat-error>
           }
         </mat-form-field>
-
         <!-- Senha -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Senha</mat-label>
@@ -27,12 +51,10 @@
           <mat-error>Mínimo de 6 caracteres</mat-error>
           }
         </mat-form-field>
-
         <!-- Erro geral -->
         @if (errorMessage()) {
         <mat-error class="block text-red-500">{{ errorMessage() }}</mat-error>
         }
-
         <!-- Botão -->
         <button
           mat-raised-button
@@ -40,25 +62,20 @@
           class="w-full py-2"
           [disabled]="loading()"
         >
-          @if (loading()) {
-          <mat-progress-spinner
-            mode="indeterminate"
-            diameter="20"
-          ></mat-progress-spinner>
-          } @else { Entrar }
+          Entrar
         </button>
       </form>
     </mat-card-content>
+    <mat-card-footer class="text-center">
+      <p class="mt-4 text-sm">
+        Não tem uma conta?
+        <a
+          [routerLink]="[PATHS.BASE, PATHS.AUTH, PATHS.REGISTER]"
+          class="text-blue-500 hover:italic hover:text-blue-700"
+          >Registrar</a
+        >
+      </p>
+    </mat-card-footer>
   </mat-card>
-
-  <mat-card-footer class="text-center">
-    <p class="mt-4 text-sm">
-      Não tem uma conta?
-      <a
-        [routerLink]="[PATHS.BASE, PATHS.AUTH, PATHS.REGISTER]"
-        class="text-blue-500 hover:italic hover:text-blue-700"
-        >Registrar</a
-      >
-    </p>
-  </mat-card-footer>
 </div>
+}

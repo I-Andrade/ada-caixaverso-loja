@@ -23,7 +23,6 @@
       <button mat-button class="bg-slate-300" (click)="logout()">Sair</button>
     </div>
     } @else {
-
     <button
       mat-button
       class="bg-slate-300"
@@ -32,5 +31,20 @@
       Entrar
     </button>
     }
+    <button
+      mat-icon-button
+      class="relative ml-2"
+      [routerLink]="[PATHS.BASE, PATHS.CART]"
+      aria-label="Carrinho"
+    >
+      <span class="material-icons text-2xl text-white">shopping_cart</span>
+      @if (cartService.cartCount() > 0) {
+      <span
+        class="absolute -top-2 -right-2 bg-yellow-400 text-blue-700 rounded-full text-xs px-2 py-0.5"
+      >
+        {{ cartService.cartCount() }}
+      </span>
+      }
+    </button>
   </nav>
 </div>

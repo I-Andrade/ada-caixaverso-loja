@@ -1,54 +1,60 @@
 <mat-card
-  class="h-[30rem] flex flex-row items-center space-x-6 w-full bg-gradient-to-b from-white to-blue-200 shadow-2xl shadow-white p-4"
+  class="h-[24rem] flex flex-row items-center space-x-6 w-full bg-gradient-to-b from-white to-blue-200 shadow-2xl shadow-white px-4 pt-4"
 >
-  @if(product() !== null) {
+  @if(product()) {
 
-  <div class="flex-shrink-0">
-    <img
-      [src]="product()?.image"
-      alt="{{ product()?.title }}"
-      class="w-96 h-96 object-contain rounded-lg border border-gray-200 shadow"
-    />
-  </div>
-  <div class="flex-1">
-    <mat-card-header class="p-0 mb-2">
-      <mat-card-title class="text-2xl font-bold text-gray-800">{{
-        product()?.title
-      }}</mat-card-title>
-      <mat-card-subtitle class="text-gray-500">{{
-        product()?.category
-      }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content class="p-0">
-      <p class="mb-2 text-gray-700 text-sm">{{ product()?.description }}</p>
-      <div class="flex items-center justify-between mb-2">
-        <div class="w-full flex justify-start items-center">
-          <span class="bg-blue-500 text-white px-1 py-0.5 rounded text-right">{{
-            product()?.price | currency : "BRL" : "symbol" : "1.2-2"
-          }}</span>
+  <div class="flex flex-col h-full justify-between w-full">
+    <div class="flex flex-col items-start w-full">
+      <div class="flex flex-row gap-6 w-full h-full">
+        <div #imageContainer class="flex-shrink-0 h-full flex items-start">
+          <img
+            [src]="product()?.image"
+            alt="{{ product()?.title }}"
+            class="w-72 h-72 object-contain rounded-lg border border-gray-200 shadow mx-auto"
+          />
         </div>
-        <div class="flex items-center gap-1 text-yellow-600 text-nowrap">
-          <mat-icon>star</mat-icon>
-          <span>{{ product()?.rating?.rate }}</span>
+        <div #infoContainer class="flex flex-1 flex-col h-full w-full">
+          <mat-card-header class="p-0 mb-2">
+            <mat-card-title class="text-2xl font-bold text-gray-800">{{
+              product()?.title
+            }}</mat-card-title>
+            <mat-card-subtitle class="text-gray-500">{{
+              product()?.category
+            }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="flex flex-1 p-0 items-center">
+            <div class="flex flex-col gap-3">
+              <p class="mb-2 text-gray-700 text-sm">
+                {{ product()?.description }}
+              </p>
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-full flex justify-start items-center">
+                  <span
+                    class="bg-blue-500 text-white px-1 py-0.5 rounded text-right"
+                    >{{
+                      product()?.price | currency : "BRL" : "symbol" : "1.2-2"
+                    }}</span
+                  >
+                </div>
+              </div>
+              <div class="flex items-center gap-1 text-yellow-600 text-nowrap">
+                <mat-icon>star</mat-icon>
+                <span>{{ product()?.rating?.rate }}</span>
 
-          <div class="text-gray-500 text-nowrap">
-            ({{ product()?.rating?.count }} avaliações)
-          </div>
+                <div class="text-gray-500 text-nowrap">
+                  ({{ product()?.rating?.count }} avaliações)
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
         </div>
       </div>
-    </mat-card-content>
-    <mat-card-actions class="mt-8 p-0">
-      <div class="w-full flex justify-center">
-        <button
-          mat-raised-button
-          color="primary"
-          class="flex items-center justify-center gap-2 cursor-pointer bg-blue-300 hover:bg-blue-700 hover:text-white p-2 rounded-2xl"
-          (click)="addToCart()"
-        >
-          <mat-icon>shopping_cart</mat-icon>
-          Adicionar ao Carrinho
-        </button>
-      </div>
+    </div>
+    <mat-card-actions #actions class="p-0 self-center">
+      <add-to-cart-button
+        class="-mb-2"
+        [product]="product()!"
+      ></add-to-cart-button>
     </mat-card-actions>
   </div>
 

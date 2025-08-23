@@ -1,13 +1,14 @@
 import { Component, effect, inject, signal } from '@angular/core';
+import { AddToCartButtonComponent } from '../../../shared/components/add-to-cart-button/add-to-cart-button.component';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../shared/services/products-service';
 import { ProductModel } from '../../../shared/models/product-model';
 
 @Component({
   selector: 'app-details',
-  standalone: false,
   templateUrl: './details.html',
   styleUrl: './details.scss',
+  standalone: false,
 })
 export class Details {
   private activatedRoute = inject(ActivatedRoute);

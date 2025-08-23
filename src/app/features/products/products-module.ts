@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Card } from './list/card/card';
 import { Details } from './details/details';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { AddToCartButtonComponent } from '../../shared/components/add-to-cart-button/add-to-cart-button.component';
 
 @NgModule({
   declarations: [List, Card, Details],
@@ -34,6 +35,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
     MatCardFooter,
     MatCardActions,
     MatIconModule,
+    AddToCartButtonComponent,
   ],
 })
 export class ProductsModule {}

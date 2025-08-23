@@ -3,6 +3,7 @@ import { AuthService } from '../../core/auth/auth-service';
 import { PATHS, SUBTITLE, TITLE } from '../../core/constants/app-const';
 import { UserModel } from '../../shared/models/user-model';
 import { Router } from '@angular/router';
+import { CartService } from '../../shared/services/cart-service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class Header implements OnInit {
   authService = inject(AuthService);
   router = inject(Router);
+  cartService = inject(CartService);
 
   title = TITLE;
   subtitle = SUBTITLE;
@@ -21,6 +23,7 @@ export class Header implements OnInit {
   userSignal = this.authService.getUserSignal();
   isLoggedIn = this.authService.isLoggedIn;
   userFirstNameSignal = this.authService.getUserFirstNameSignal();
+  cartCountSignal = this.cartService.cartCount();
 
   ngOnInit() {}
 

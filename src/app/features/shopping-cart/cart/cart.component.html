@@ -1,0 +1,103 @@
+<div
+  class="p-6 w-full max-w-3xl mx-auto bg-white rounded-xl shadow-md flex flex-col gap-4"
+>
+  <h2 class="text-2xl font-bold mb-4">Seu Carrinho</h2>
+  @if (cartService.isEmpty()) {
+  <div class="text-gray-500">O carrinho está vazio.</div>
+  <a
+    [routerLink]="[PATHS.BASE, PATHS.PRODUCTS]"
+    class="inline-block mt-4 text-blue-600 hover:underline text-sm"
+  >
+    Ver produtos
+    <span class="material-icons align-middle text-base">arrow_forward</span>
+  </a>
+  } @else {
+  <a
+    [routerLink]="[PATHS.BASE, PATHS.PRODUCTS]"
+    class="inline-block mb-2 text-blue-600 hover:underline text-sm"
+  >
+    Adicionar outros produtos
+    <span class="material-icons align-middle text-base">add_shopping_cart</span>
+  </a>
+  <ul>
+    @for (item of cartItems(); track item.product.id) {
+    <li class="flex items-center justify-between py-2 border-b">
+      <div class="flex items-center gap-4">
+        <img
+          [src]="item.product.image"
+          alt="{{ item.product.title }}"
+          class="h-12 w-12 rounded object-cover"
+        />
+        <div class="flex flex-col">
+          <span class="font-medium line-clamp-2 w-40">{{
+            item.product.title
+          }}</span>
+          <span class="text-xs text-gray-500 mt-1">{{
+            item.product.price | currency : "BRL" : "symbol" : "1.2-2"
+          }}</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 min-w-[120px] justify-center">
+        <button
+          mat-icon-button
+          class="text-gray-700 hover:text-blue-700"
+          (click)="decreaseQty(item.product.id)"
+          matTooltip="Diminuir quantidade"
+        >
+          <span class="material-icons">remove</span>
+        </button>
+        <span class="mx-2">{{ item.qty }}</span>
+        <button
+          mat-icon-button
+          class="text-gray-700 hover:text-blue-700"
+          (click)="increaseQty(item.product.id)"
+          matTooltip="Aumentar quantidade"
+        >
+          <span class="material-icons">add</span>
+        </button>
+        <button
+          mat-icon-button
+          class="ml-2 text-red-500 hover:text-red-700"
+          (click)="removeProduct(item.product.id)"
+          matTooltip="Remover produto do carrinho"
+        >
+          <span class="material-icons">delete</span>
+        </button>
+        <span class="font-semibold ml-4"
+          >Total:<br />
+          {{
+            item.product.price * item.qty
+              | currency : "BRL" : "symbol" : "1.2-2"
+          }}</span
+        >
+      </div>
+    </li>
+    }
+    <!-- end @for -->
+  </ul>
+  <div class="flex flex-col gap-2 mt-4">
+    <div class="flex items-center justify-between">
+      <span class="font-semibold">Total da compra:</span>
+      <span>{{
+        cartService.cartTotal() | currency : "BRL" : "symbol" : "1.2-2"
+      }}</span>
+    </div>
+    <div class="flex gap-2 justify-end mt-2">
+      <button
+        class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800"
+        (click)="clearCart()"
+        matTooltip="Limpar todos os itens do carrinho"
+      >
+        Limpar Carrinho
+      </button>
+      <button
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        (click)="checkout()"
+        matTooltip="Finalizar compra"
+      >
+        Finalizar Compra
+      </button>
+    </div>
+  </div>
+  }
+</div>
