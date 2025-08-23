@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth-service';
 import { RegisterDto } from '../../../shared/dtos/register-dto';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PATHS } from '../../../core/constants/app-const';
 
 @Component({
@@ -13,8 +14,9 @@ import { PATHS } from '../../../core/constants/app-const';
 })
 export class Register {
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
   protected PATHS = PATHS;
   loading = signal(false);
   errorMessage = signal('');
@@ -52,6 +54,11 @@ export class Register {
     this.authService.register(registerData).subscribe({
       next: () => {
         this.loading.set(false);
+        this.snackBar.open(
+          'Registro realizado com sucesso! Você já pode fazer login.',
+          'Fechar',
+          { duration: 3000 }
+        );
         this.router.navigate([PATHS.AUTH, PATHS.LOGIN]);
       },
       error: (err) => {

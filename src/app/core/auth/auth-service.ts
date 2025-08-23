@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { firstValueFrom } from 'rxjs';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { UserModel } from '../../shared/models/user-model';
 import { switchMap, tap } from 'rxjs';
 import { LoginDto } from '../../shared/dtos/login-dto';
@@ -12,7 +16,10 @@ import { LoginResponseModel } from '../../shared/models/login-response-model';
   providedIn: 'root',
 })
 export class AuthService {
+  public loading = signal(false);
   private http: HttpClient = inject(HttpClient);
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
 
   private readonly apiUsers = environment.apiUsers;
 
@@ -33,6 +40,7 @@ export class AuthService {
   }
 
   login(data: LoginDto) {
+    this.loading.set(true);
     return this.http
       .post<LoginResponseModel>(
         `${this.apiUsers}${API_ENDPOINTS.AUTH.LOGIN}`,
@@ -43,27 +51,52 @@ export class AuthService {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('refresh_token', response.refresh_token);
         }),
-        switchMap(() => this.fetchUser())
+        switchMap(() => this.fetchUser()),
+        tap(() => this.loading.set(false))
       );
   }
 
-  logout() {
-    this.user.set(null);
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+  async logoutWithConfirm(router: any, redirectPath: any = null) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Sair da conta',
+        message: 'Deseja realmente sair da sua conta?',
+      },
+    });
+    const confirmed = await firstValueFrom(dialogRef.afterClosed());
+    if (confirmed) {
+      this.loading.set(true);
+      this.user.set(null);
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      setTimeout(() => {
+        this.loading.set(false);
+        if (redirectPath) {
+          router.navigate([redirectPath]);
+        }
+        this.snackBar.open('Logout realizado com sucesso!', 'Fechar', {
+          duration: 2500,
+        });
+      }, 300);
+    }
   }
 
   register(data: RegisterDto) {
-    return this.http.post(`${this.apiUsers}${API_ENDPOINTS.AUTH.USERS}`, data);
+    this.loading.set(true);
+    return this.http
+      .post(`${this.apiUsers}${API_ENDPOINTS.AUTH.USERS}`, data)
+      .pipe(tap(() => this.loading.set(false)));
   }
 
   fetchUser() {
+    this.loading.set(true);
     this.user.set(null);
     return this.http
       .get<UserModel>(`${this.apiUsers}${API_ENDPOINTS.AUTH.PROFILE}`)
       .pipe(
         tap((user) => {
           this.user.set(user);
+          this.loading.set(false);
         })
       );
   }

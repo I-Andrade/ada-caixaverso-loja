@@ -27,8 +27,7 @@ export class Header implements OnInit {
 
   ngOnInit() {}
 
-  logout = () => {
-    this.authService.logout();
-    this.router.navigate([PATHS.THIS]);
+  logout = async () => {
+    await this.authService.logoutWithConfirm(this.router, PATHS.THIS);
   };
 }

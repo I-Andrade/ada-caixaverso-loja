@@ -1,6 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/auth-service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { firstValueFrom } from 'rxjs';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { LoginDto } from '../../../shared/dtos/login-dto';
 import { Router } from '@angular/router';
 import { PATHS } from '../../../core/constants/app-const';
@@ -13,9 +17,11 @@ import { PATHS } from '../../../core/constants/app-const';
 })
 export class Login {
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
 
   protected PATHS = PATHS;
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
 
   protected form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -57,8 +63,7 @@ export class Login {
     });
   }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate([PATHS.LOGIN]);
+  async logout() {
+    await this.authService.logoutWithConfirm(this.router, PATHS.LOGIN);
   }
 }

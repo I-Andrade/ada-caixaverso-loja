@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Card } from './list/card/card';
 import { Details } from './details/details';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AddToCartButtonComponent } from '../../shared/components/add-to-cart-button/add-to-cart-button.component';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { AddToCartButtonComponent } from '../../shared/components/add-to-cart-bu
     MatCardActions,
     MatIconModule,
     AddToCartButtonComponent,
+    MatProgressBarModule,
   ],
 })
 export class ProductsModule {}

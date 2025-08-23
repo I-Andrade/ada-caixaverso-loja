@@ -1,5 +1,12 @@
 @if (isLoggedIn()) {
 <div class="bg-slate-50 p-8 rounded-2xl">
+  @if (authService.loading()) {
+  <mat-progress-bar
+    mode="indeterminate"
+    color="primary"
+    class="mb-4"
+  ></mat-progress-bar>
+  }
   <mat-card
     class="max-w-md mx-auto shadow-lg rounded-2xl flex flex-col items-center py-8"
   >
@@ -25,6 +32,13 @@
 </div>
 } @else {
 <div class="bg-slate-50 p-8 rounded-2xl">
+  @if (authService.loading()) {
+  <mat-progress-bar
+    mode="indeterminate"
+    color="primary"
+    class="mb-4"
+  ></mat-progress-bar>
+  }
   <mat-card class="max-w-md mx-auto shadow-lg rounded-2xl">
     <mat-card-header>
       <mat-card-title class="text-xl font-semibold mb-4">Entrar</mat-card-title>

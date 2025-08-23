@@ -10,7 +10,7 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrl: './list.scss',
 })
 export class List {
-  private productsService = inject(ProductsService);
+  public productsService = inject(ProductsService);
 
   protected productsSignal = this.productsService.getProductsSignal();
   protected totalProducts = signal<number>(0);

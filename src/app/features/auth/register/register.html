@@ -1,4 +1,11 @@
 <div class="bg-slate-50 p-8 rounded-2xl">
+  @if (authService.loading()) {
+  <mat-progress-bar
+    mode="indeterminate"
+    color="primary"
+    class="mb-4"
+  ></mat-progress-bar>
+  }
   <mat-card>
     <mat-card-header>
       <mat-card-title>Registrar</mat-card-title>

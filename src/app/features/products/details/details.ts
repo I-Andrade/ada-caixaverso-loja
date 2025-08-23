@@ -12,7 +12,7 @@ import { ProductModel } from '../../../shared/models/product-model';
 })
 export class Details {
   private activatedRoute = inject(ActivatedRoute);
-  private productService = inject(ProductsService);
+  public productService = inject(ProductsService);
 
   private productId = signal<string | null>(null);
   protected product = signal<ProductModel | null>(null);

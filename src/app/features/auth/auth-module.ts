@@ -8,7 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AuthRoutingModule } from './auth-routing-module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [Login, Register],
@@ -21,6 +25,7 @@ import { AuthRoutingModule } from './auth-routing-module';
     MatButtonModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
 })
 export class AuthModule {}

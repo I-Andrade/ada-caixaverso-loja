@@ -1,6 +1,13 @@
 <div
   class="p-6 w-full max-w-3xl mx-auto bg-white rounded-xl shadow-md flex flex-col gap-4"
 >
+  @if (cartService.loading()) {
+  <mat-progress-bar
+    mode="indeterminate"
+    color="primary"
+    class="mb-4"
+  ></mat-progress-bar>
+  }
   <h2 class="text-2xl font-bold mb-4">Seu Carrinho</h2>
   @if (cartService.isEmpty()) {
   <div class="text-gray-500">O carrinho está vazio.</div>
