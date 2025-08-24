@@ -15,6 +15,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   standalone: false,
 })
 export class ProductFormDialogComponent implements OnChanges {
+  public showImagePreview = false;
+
+  get isImageValid(): boolean {
+    const url = this.form.get('image')?.value;
+    if (!url) return false;
+    return /^https?:\/\/.+\.(jpg|jpeg|png|webp|gif)$/i.test(url);
+  }
+
   private getDefaultFormValues(): Partial<ProductModel> {
     return {
       title: '',

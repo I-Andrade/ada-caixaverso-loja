@@ -36,6 +36,29 @@
         product.id
       }}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef class="image-column"
+        >Img</mat-header-cell
+      >
+      <mat-cell *matCellDef="let product" class="image-column relative">
+        <img
+          [src]="product.image"
+          alt="Imagem do produto"
+          class="image-thumb object-cover rounded cursor-pointer border border-gray-200"
+          (mouseenter)="product._showPreview = true"
+          (mouseleave)="product._showPreview = false"
+        />
+        @if (product._showPreview) {
+        <div class="image-preview-panel">
+          <img
+            [src]="product.image"
+            alt="Imagem do produto"
+            style="max-width: 100%; max-height: 100%; border-radius: 8px"
+          />
+        </div>
+        }
+      </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="title-column"
         >Título</mat-header-cell
@@ -79,10 +102,13 @@
       </mat-cell>
     </ng-container>
     <mat-header-row
-      *matHeaderRowDef="['id', 'title', 'price', 'actions']"
+      *matHeaderRowDef="['id', 'image', 'title', 'price', 'actions']"
     ></mat-header-row>
     <mat-row
-      *matRowDef="let row; columns: ['id', 'title', 'price', 'actions']"
+      *matRowDef="
+        let row;
+        columns: ['id', 'image', 'title', 'price', 'actions']
+      "
     ></mat-row>
   </mat-table>
   <!-- Mensagem de vazio fora da tabela -->
