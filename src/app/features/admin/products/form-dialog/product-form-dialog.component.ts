@@ -34,7 +34,7 @@ export class ProductFormDialogComponent implements OnChanges {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       title: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0)]],
+      price: ['', [Validators.required, Validators.min(0.01)]],
       description: [''],
       image: [''],
       category: [''],

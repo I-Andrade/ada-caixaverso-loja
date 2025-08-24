@@ -10,10 +10,21 @@
       <mat-form-field>
         <mat-label>Título</mat-label>
         <input matInput formControlName="title" required />
+        @if (form.get('title')?.hasError('required') &&
+        form.get('title')?.touched) {
+        <mat-error>O título é obrigatório.</mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <mat-label>Preço</mat-label>
         <input matInput type="number" formControlName="price" required />
+        @if (form.get('price')?.hasError('required') &&
+        form.get('price')?.touched) {
+        <mat-error>O preço é obrigatório.</mat-error>
+        } @if (form.get('price')?.hasError('min') && form.get('price')?.touched)
+        {
+        <mat-error>O preço deve ser maior do que R$ 0.00.</mat-error>
+        }
       </mat-form-field>
       <mat-form-field>
         <mat-label>Descrição</mat-label>
@@ -29,7 +40,19 @@
       </mat-form-field>
       <div class="flex gap-2 justify-end mt-4">
         <button mat-button type="button" (click)="cancel()">Cancelar</button>
-        <button mat-raised-button color="primary" type="submit">
+        <button
+          mat-raised-button
+          [color]="form.valid ? 'primary' : 'warn'"
+          type="submit"
+          matTooltip="{{
+            form.valid
+              ? isEdit
+                ? 'Salvar produto'
+                : 'Adicionar produto'
+              : 'Preencha todos os campos obrigatórios para salvar'
+          }}"
+          [ngClass]="form.valid ? 'cursor-pointer' : 'cursor-not-allowed'"
+        >
           {{ isEdit ? "Salvar" : "Adicionar" }}
         </button>
       </div>

@@ -1,5 +1,7 @@
 import { Component, inject, signal, effect } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { ViewChild, AfterViewInit } from '@angular/core';
 import { ProductsService } from '../../../shared/services/products-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,10 +15,10 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './products.component.scss',
   standalone: false,
 })
-export class AdminProductsComponent {
-  // Função para identificar linha vazia na tabela
-  isEmptyRow = () => this.displayedProducts().length === 0;
-  // Objeto fictício para linha de vazio
+export class AdminProductsComponent implements AfterViewInit {
+  dataSource = new MatTableDataSource<ProductModel>([]);
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('paginator') paginator: any;
   showFormDialog = signal(false);
   editingProduct = signal<ProductModel | null>(null);
 
@@ -78,38 +80,23 @@ export class AdminProductsComponent {
   loading = this.productsService.loading;
   searchTerm = signal('');
   filteredProducts = signal<ProductModel[]>([]);
-  pageIndex = signal(0);
-  pageSize = signal(5);
-  displayedProducts = signal<ProductModel[]>([]);
 
   constructor() {
     effect(() => {
       const term = this.searchTerm().toLowerCase();
-      this.filteredProducts.set(
-        this.productsSignal().filter((p) =>
-          p.title.toLowerCase().includes(term)
-        )
+      const filtered = this.productsSignal().filter((p) =>
+        p.title.toLowerCase().includes(term)
       );
-    });
-
-    effect(() => {
-      const start = this.pageIndex() * this.pageSize();
-      const end = start + this.pageSize();
-      const filtered = this.filteredProducts();
-      let pageItems = filtered.slice(start, end);
-      // Se a página ficou vazia mas ainda há produtos, resetar paginação
-      if (
-        pageItems.length === 0 &&
-        filtered.length > 0 &&
-        this.pageIndex() > 0
-      ) {
-        this.pageIndex.set(0);
-        pageItems = filtered.slice(0, this.pageSize());
-      }
-      this.displayedProducts.set(pageItems);
+      this.filteredProducts.set(filtered);
+      this.dataSource.data = filtered;
     });
 
     this.productsService.getProducts().subscribe();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   async deleteProduct(product: ProductModel) {
@@ -126,15 +113,7 @@ export class AdminProductsComponent {
           this.snackBar.open('Produto removido com sucesso!', 'Fechar', {
             duration: 2500,
           });
-          // Se a página ficou vazia mas ainda há produtos, resetar paginação
-          setTimeout(() => {
-            if (
-              this.displayedProducts().length === 0 &&
-              this.productsSignal().length > 0
-            ) {
-              this.pageIndex.set(0);
-            }
-          });
+          // O paginator do MatTableDataSource já cuida do reset automático
         },
         error: () => {
           this.snackBar.open('Erro ao remover produto!', 'Fechar', {
@@ -143,10 +122,5 @@ export class AdminProductsComponent {
         },
       });
     }
-  }
-
-  onPageChange(event: PageEvent) {
-    this.pageIndex.set(event.pageIndex);
-    this.pageSize.set(event.pageSize);
   }
 }

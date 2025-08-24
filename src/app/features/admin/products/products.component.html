@@ -27,7 +27,7 @@
     class="mb-4"
   ></mat-progress-bar>
   }
-  <mat-table [dataSource]="displayedProducts()" matSort>
+  <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="id-column"
         >ID</mat-header-cell
@@ -86,7 +86,7 @@
     ></mat-row>
   </mat-table>
   <!-- Mensagem de vazio fora da tabela -->
-  @if (!loading() && displayedProducts().length === 0) {
+  @if (!loading() && dataSource.data.length === 0) {
   <div class="text-center py-6 text-gray-500">
     @if (searchTerm().trim().length > 0) { Nenhum produto encontrado para sua
     busca. } @else if(productsSignal().length === 0) { Nenhum produto
@@ -94,11 +94,8 @@
   </div>
   }
   <mat-paginator
-    [length]="filteredProducts().length"
-    [pageSize]="pageSize()"
-    [pageIndex]="pageIndex()"
+    #paginator
     [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons
-    (page)="onPageChange($event)"
   ></mat-paginator>
 </div>
