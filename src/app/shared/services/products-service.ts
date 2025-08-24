@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { ProductModel } from '../models/product-model';
 import { API_ENDPOINTS } from '../../core/constants/api-endpoints-const';
 import { tap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class ProductsService {
   private productsSignal = signal<ProductModel[]>([]);
   private readonly apiProducts = environment.apiProducts;
   private http: HttpClient = inject(HttpClient);
+  private snackBar = inject(MatSnackBar);
 
   // Construtor
   constructor() {}
@@ -26,9 +28,21 @@ export class ProductsService {
     return this.http
       .get<ProductModel[]>(`${this.apiProducts}${API_ENDPOINTS.PRODUCTS.LIST}`)
       .pipe(
-        tap((products) => {
-          this.productsSignal.set(products);
-          this.loading.set(false);
+        tap({
+          next: (products) => {
+            this.productsSignal.set(products);
+            this.loading.set(false);
+          },
+          error: (err: any) => {
+            this.loading.set(false);
+            this.snackBar.open(
+              `Erro ao buscar produtos: ${
+                err?.error?.message || err?.message || 'Erro desconhecido'
+              }`,
+              'Fechar',
+              { duration: 3500 }
+            );
+          },
         })
       );
   }
@@ -39,7 +53,21 @@ export class ProductsService {
       .get<ProductModel>(
         `${this.apiProducts}${API_ENDPOINTS.PRODUCTS.DETAILS(id)}`
       )
-      .pipe(tap(() => this.loading.set(false)));
+      .pipe(
+        tap({
+          next: () => this.loading.set(false),
+          error: (err: any) => {
+            this.loading.set(false);
+            this.snackBar.open(
+              `Erro ao buscar produto: ${
+                err?.error?.message || err?.message || 'Erro desconhecido'
+              }`,
+              'Fechar',
+              { duration: 3500 }
+            );
+          },
+        })
+      );
   }
 
   createProduct(product: Partial<ProductModel>) {
