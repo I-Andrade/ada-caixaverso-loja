@@ -1,4 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
+import { PATHS } from '../../../core/constants/app-const';
 import { AddToCartButtonComponent } from '../../../shared/components/add-to-cart-button/add-to-cart-button.component';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../shared/services/products-service';
@@ -11,6 +12,7 @@ import { ProductModel } from '../../../shared/models/product-model';
   standalone: false,
 })
 export class Details {
+  public PATHS = PATHS;
   private activatedRoute = inject(ActivatedRoute);
   public productService = inject(ProductsService);
 
