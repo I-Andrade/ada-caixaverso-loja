@@ -23,7 +23,7 @@ export class Header implements OnInit {
   userSignal = this.authService.getUserSignal();
   isLoggedIn = this.authService.isLoggedIn;
   userFirstNameSignal = this.authService.getUserFirstNameSignal();
-  cartCountSignal = this.cartService.cartCount();
+  cartCountSignal = this.cartService.cartCount;
 
   ngOnInit() {}
 

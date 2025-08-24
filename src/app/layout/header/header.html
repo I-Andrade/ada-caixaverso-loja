@@ -12,6 +12,32 @@
     <span>{{ subtitle }}</span>
   </div>
   <nav class="flex space-x-4">
+    @if (userSignal()?.role === 'admin' && isLoggedIn()) {
+    <button
+      mat-icon-button
+      class="relative mr-2"
+      [routerLink]="[PATHS.BASE, PATHS.ADMIN]"
+      aria-label="Administração"
+      matTooltip="Área administrativa"
+    >
+      <span class="material-icons text-2xl text-white"
+        >admin_panel_settings</span
+      >
+    </button>
+    }
+    <button
+      mat-icon-button
+      class="relative ml-2"
+      [routerLink]="[PATHS.BASE, PATHS.CART]"
+      aria-label="Carrinho"
+    >
+      <span class="material-icons text-2xl text-white">shopping_cart</span>
+      <span
+        *ngIf="cartCountSignal() > 0"
+        class="absolute top-0 right-0 bg-amber-600 text-white rounded-full px-2 text-xs"
+        >{{ cartCountSignal() }}</span
+      >
+    </button>
     @if (isLoggedIn()) {
     <div class="flex items-center gap-2">
       <img
@@ -21,32 +47,6 @@
       />
       <span>{{ userFirstNameSignal() }}</span>
       <button mat-button class="bg-slate-300" (click)="logout()">Sair</button>
-      <button
-        mat-icon-button
-        class="relative ml-2"
-        [routerLink]="[PATHS.BASE, PATHS.CART]"
-        aria-label="Carrinho"
-      >
-        <span class="material-icons text-2xl text-white">shopping_cart</span>
-        <span
-          *ngIf="cartCountSignal > 0"
-          class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 text-xs"
-          >{{ cartCountSignal }}</span
-        >
-      </button>
-      @if (userSignal()?.role === 'admin') {
-      <button
-        mat-icon-button
-        class="relative ml-2"
-        [routerLink]="[PATHS.BASE, PATHS.ADMIN]"
-        aria-label="Administração"
-        matTooltip="Área administrativa"
-      >
-        <span class="material-icons text-2xl text-white"
-          >admin_panel_settings</span
-        >
-      </button>
-      }
     </div>
     } @else {
     <button
@@ -55,19 +55,6 @@
       [routerLink]="[PATHS.BASE, PATHS.AUTH, PATHS.LOGIN]"
     >
       Entrar
-    </button>
-    <button
-      mat-icon-button
-      class="relative ml-2"
-      [routerLink]="[PATHS.BASE, PATHS.CART]"
-      aria-label="Carrinho"
-    >
-      <span class="material-icons text-2xl text-white">shopping_cart</span>
-      <span
-        *ngIf="cartCountSignal > 0"
-        class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 text-xs"
-        >{{ cartCountSignal }}</span
-      >
     </button>
     }
   </nav>

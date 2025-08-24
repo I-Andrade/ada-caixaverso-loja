@@ -52,7 +52,21 @@ export class AuthService {
           localStorage.setItem('refresh_token', response.refresh_token);
         }),
         switchMap(() => this.fetchUser()),
-        tap(() => this.loading.set(false))
+        tap(() => this.loading.set(false)),
+        // Tratamento de erro
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        tap({
+          error: (err: any) => {
+            this.loading.set(false);
+            this.snackBar.open(
+              `Erro ao fazer login: ${
+                err?.error?.message || err?.message || 'Erro desconhecido'
+              }`,
+              'Fechar',
+              { duration: 3500 }
+            );
+          },
+        })
       );
   }
 
@@ -63,21 +77,32 @@ export class AuthService {
         message: 'Deseja realmente sair da sua conta?',
       },
     });
-    const confirmed = await firstValueFrom(dialogRef.afterClosed());
-    if (confirmed) {
-      this.loading.set(true);
-      this.user.set(null);
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-      setTimeout(() => {
-        this.loading.set(false);
-        if (redirectPath) {
-          router.navigate([redirectPath]);
-        }
-        this.snackBar.open('Logout realizado com sucesso!', 'Fechar', {
-          duration: 2500,
-        });
-      }, 300);
+    try {
+      const confirmed = await firstValueFrom(dialogRef.afterClosed());
+      if (confirmed) {
+        this.loading.set(true);
+        this.user.set(null);
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        setTimeout(() => {
+          this.loading.set(false);
+          if (redirectPath) {
+            router.navigate([redirectPath]);
+          }
+          this.snackBar.open('Logout realizado com sucesso!', 'Fechar', {
+            duration: 2500,
+          });
+        }, 300);
+      }
+    } catch (err: any) {
+      this.loading.set(false);
+      this.snackBar.open(
+        `Erro ao sair: ${
+          err?.error?.message || err?.message || 'Erro desconhecido'
+        }`,
+        'Fechar',
+        { duration: 3500 }
+      );
     }
   }
 
@@ -85,7 +110,21 @@ export class AuthService {
     this.loading.set(true);
     return this.http
       .post(`${this.apiUsers}${API_ENDPOINTS.AUTH.USERS}`, data)
-      .pipe(tap(() => this.loading.set(false)));
+      .pipe(
+        tap(() => this.loading.set(false)),
+        tap({
+          error: (err: any) => {
+            this.loading.set(false);
+            this.snackBar.open(
+              `Erro ao registrar: ${
+                err?.error?.message || err?.message || 'Erro desconhecido'
+              }`,
+              'Fechar',
+              { duration: 3500 }
+            );
+          },
+        })
+      );
   }
 
   fetchUser() {
@@ -97,6 +136,18 @@ export class AuthService {
         tap((user) => {
           this.user.set(user);
           this.loading.set(false);
+        }),
+        tap({
+          error: (err: any) => {
+            this.loading.set(false);
+            this.snackBar.open(
+              `Erro ao buscar usuário: ${
+                err?.error?.message || err?.message || 'Erro desconhecido'
+              }`,
+              'Fechar',
+              { duration: 3500 }
+            );
+          },
         })
       );
   }
