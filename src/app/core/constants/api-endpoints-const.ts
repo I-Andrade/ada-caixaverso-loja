@@ -6,6 +6,9 @@ export const API_ENDPOINTS = {
   },
   PRODUCTS: {
     LIST: '/products',
+    CREATE: '/products',
     DETAILS: (id: string) => `/products/${id}`,
+    UPDATE: (id: string) => `/products/${id}`,
+    DELETE: (id: string) => `/products/${id}`,
   },
 };

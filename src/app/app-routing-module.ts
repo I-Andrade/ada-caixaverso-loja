@@ -23,6 +23,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: PATHS.ADMIN,
+    loadChildren: () =>
+      import('./features/admin/admin-module').then((m) => m.AdminModule),
+  },
+  {
     path: PATHS.THIS,
     redirectTo: PATHS.PRODUCTS,
     pathMatch: 'full',

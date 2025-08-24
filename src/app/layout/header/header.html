@@ -21,6 +21,32 @@
       />
       <span>{{ userFirstNameSignal() }}</span>
       <button mat-button class="bg-slate-300" (click)="logout()">Sair</button>
+      <button
+        mat-icon-button
+        class="relative ml-2"
+        [routerLink]="[PATHS.BASE, PATHS.CART]"
+        aria-label="Carrinho"
+      >
+        <span class="material-icons text-2xl text-white">shopping_cart</span>
+        <span
+          *ngIf="cartCountSignal > 0"
+          class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 text-xs"
+          >{{ cartCountSignal }}</span
+        >
+      </button>
+      @if (userSignal()?.role === 'admin') {
+      <button
+        mat-icon-button
+        class="relative ml-2"
+        [routerLink]="[PATHS.BASE, PATHS.ADMIN]"
+        aria-label="Administração"
+        matTooltip="Área administrativa"
+      >
+        <span class="material-icons text-2xl text-white"
+          >admin_panel_settings</span
+        >
+      </button>
+      }
     </div>
     } @else {
     <button
@@ -30,7 +56,6 @@
     >
       Entrar
     </button>
-    }
     <button
       mat-icon-button
       class="relative ml-2"
@@ -38,13 +63,12 @@
       aria-label="Carrinho"
     >
       <span class="material-icons text-2xl text-white">shopping_cart</span>
-      @if (cartService.cartCount() > 0) {
       <span
-        class="absolute -top-2 -right-2 bg-yellow-400 text-blue-700 rounded-full text-xs px-2 py-0.5"
+        *ngIf="cartCountSignal > 0"
+        class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 text-xs"
+        >{{ cartCountSignal }}</span
       >
-        {{ cartService.cartCount() }}
-      </span>
-      }
     </button>
+    }
   </nav>
 </div>

@@ -1,0 +1,104 @@
+<div
+  class="p-6 w-full max-w-5xl mx-auto bg-white rounded-xl shadow-md flex flex-col gap-4"
+>
+  <h2 class="text-2xl font-bold mb-4">Administração de Produtos</h2>
+  <div class="flex items-center gap-2 mb-4">
+    <input
+      matInput
+      class="flex-1 self-center px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      placeholder="Buscar produto..."
+    />
+    <button mat-raised-button color="primary" (click)="openAddProductDialog()">
+      <mat-icon>add</mat-icon>
+      Adicionar produto
+    </button>
+    <product-form-dialog
+      [open]="showFormDialog()"
+      [product]="editingProduct()"
+      (close)="onFormDialogClose($event)"
+    ></product-form-dialog>
+  </div>
+  @if (loading()) {
+  <mat-progress-bar
+    mode="indeterminate"
+    color="primary"
+    class="mb-4"
+  ></mat-progress-bar>
+  }
+  <mat-table [dataSource]="displayedProducts()" matSort>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="id-column"
+        >ID</mat-header-cell
+      >
+      <mat-cell *matCellDef="let product" class="id-column">{{
+        product.id
+      }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="title-column"
+        >Título</mat-header-cell
+      >
+      <mat-cell *matCellDef="let product" class="title-column">{{
+        product.title
+      }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="price-column"
+        >Preço</mat-header-cell
+      >
+      <mat-cell *matCellDef="let product" class="price-column">{{
+        product.price | currency : "BRL" : "symbol" : "1.2-2"
+      }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="bg-gray-50 actions-column"
+        >Ações</mat-header-cell
+      >
+      <mat-cell
+        *matCellDef="let product"
+        class="actions-column flex gap-2 items-center"
+      >
+        <button
+          type="button"
+          class="text-blue-700 transition-colors cursor-pointer"
+          (click)="openEditProductDialog(product)"
+          matTooltip="Editar produto"
+        >
+          <span class="material-icons">edit</span>
+        </button>
+        <button
+          type="button"
+          class="text-red-700 transition-colors cursor-pointer"
+          (click)="deleteProduct(product)"
+          matTooltip="Remover produto"
+        >
+          <span class="material-icons">delete</span>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row
+      *matHeaderRowDef="['id', 'title', 'price', 'actions']"
+    ></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: ['id', 'title', 'price', 'actions']"
+    ></mat-row>
+  </mat-table>
+  <!-- Mensagem de vazio fora da tabela -->
+  @if (!loading() && displayedProducts().length === 0) {
+  <div class="text-center py-6 text-gray-500">
+    @if (searchTerm().trim().length > 0) { Nenhum produto encontrado para sua
+    busca. } @else if(productsSignal().length === 0) { Nenhum produto
+    cadastrado. }
+  </div>
+  }
+  <mat-paginator
+    [length]="filteredProducts().length"
+    [pageSize]="pageSize()"
+    [pageIndex]="pageIndex()"
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>

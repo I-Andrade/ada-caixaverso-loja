@@ -1,0 +1,43 @@
+// Forçar largura das colunas da tabela Angular Material
+::ng-deep .id-column {
+  width: 4rem !important;
+  min-width: 4rem !important;
+  max-width: 4rem !important;
+}
+
+::ng-deep .title-column {
+  width: 55% !important;
+  min-width: 28rem !important;
+}
+
+::ng-deep .price-column {
+  width: 8rem !important;
+  min-width: 8rem !important;
+  max-width: 10rem !important;
+}
+
+::ng-deep .actions-column {
+  width: 7rem !important;
+  min-width: 7rem !important;
+  max-width: 8rem !important;
+}
+.admin-products-table {
+  width: 100%;
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 8px 16px;
+}
+
+.mat-header-row {
+  background: #f3f4f6;
+}
+
+.mat-row {
+  transition: background 0.2s;
+}
+
+.mat-row:hover {
+  background: #e0e7ff;
+}
