@@ -26,7 +26,7 @@ export class ProductFormDialogComponent implements OnChanges {
   }
   @Input() product: ProductModel | null = null;
   @Input() open = false;
-  @Output() close = new EventEmitter<any>();
+  @Output() close = new EventEmitter<Partial<ProductModel> | null>();
 
   form: FormGroup;
   isEdit: boolean = false;
@@ -50,7 +50,11 @@ export class ProductFormDialogComponent implements OnChanges {
 
   submit() {
     if (this.form.valid) {
-      this.close.emit(this.form.value);
+      const value: Partial<ProductModel> = {
+        ...this.form.value,
+        price: Number(this.form.value.price),
+      };
+      this.close.emit(value);
       this.form.reset(this.getDefaultFormValues());
     }
   }
