@@ -12,29 +12,23 @@ import { CartService } from '../../shared/services/cart-service';
   styleUrls: ['./header.scss'],
 })
 export class Header implements OnInit {
-  // Services
   authService = inject(AuthService);
   router = inject(Router);
   cartService = inject(CartService);
 
-  // UI State
   showUserMenu = false;
 
-  // Constantes
   title = TITLE;
   subtitle = SUBTITLE;
   PATHS = PATHS;
 
-  // Signals
   userSignal = this.authService.getUserSignal();
   isLoggedIn = this.authService.isLoggedIn;
   userFirstNameSignal = this.authService.getUserFirstNameSignal();
   cartCountSignal = this.cartService.cartCount;
 
-  // Lifecycle
   ngOnInit() {}
 
-  // Métodos
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
