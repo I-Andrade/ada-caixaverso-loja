@@ -18,8 +18,8 @@ export class List {
   protected searchTermSignal = signal<string>('');
   protected filteredProducts = signal<ProductModel[]>([]);
 
-  protected pageSizeOptions = [5, 10, 20, 30, 50, 100];
-  protected pageSize = signal<number>(10);
+  protected pageSizeOptions = [2, 4, 8, 16, 32, 64, 128];
+  protected pageSize = signal<number>(8);
   protected pageIndex = signal<number>(0);
   protected displayedProducts = signal<ProductModel[]>([]);
 
