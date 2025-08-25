@@ -10,17 +10,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class ProductsService {
-  // Propriedades e sinais
   public loading = signal(false);
   private productsSignal = signal<ProductModel[]>([]);
   private readonly apiProducts = environment.apiProducts;
   private http: HttpClient = inject(HttpClient);
   private snackBar = inject(MatSnackBar);
 
-  // Construtor
   constructor() {}
 
-  // Métodos públicos
   public getProductsSignal = () => this.productsSignal;
 
   getProducts() {

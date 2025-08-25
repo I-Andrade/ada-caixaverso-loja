@@ -6,7 +6,7 @@ import { App } from './app';
 import { Header } from './layout/header/header';
 import { Footer } from './layout/footer/footer';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './auth-interceptor';
+import { authInterceptor } from './core/auth/auth-interceptor';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';

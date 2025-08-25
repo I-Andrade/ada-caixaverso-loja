@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminProductsComponent } from './products/products.component';
 import { AdminGuard } from '../../core/auth/admin-guard';
 import { PATHS } from '../../core/constants/app-const';
+import { AuthGuard } from '../../core/auth/auth-guard';
 
 const routes: Routes = [
   {
     path: PATHS.ADMIN_PRODUCTS,
     component: AdminProductsComponent,
-    // canActivate: [AdminGuard],
+    canActivate: [AuthGuard, AdminGuard],
   },
   {
     path: PATHS.THIS,

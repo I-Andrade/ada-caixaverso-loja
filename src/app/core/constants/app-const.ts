@@ -1,4 +1,3 @@
-import { A, B } from '@angular/cdk/keycodes';
 import { LOCALE_ID } from '@angular/core';
 
 export const LOCALE_PROVIDER = {
@@ -23,5 +22,5 @@ export const PATHS = {
   CART: 'carrinho',
   ADMIN: 'administracao',
   ADMIN_PRODUCTS: 'produtos',
-  NOT_FOUND: '404',
+  NOT_FOUND: '**',
 };

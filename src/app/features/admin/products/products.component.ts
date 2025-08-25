@@ -40,7 +40,6 @@ export class AdminProductsComponent implements AfterViewInit {
     }
     const editing = this.editingProduct();
     if (editing) {
-      // Editar produto
       this.productsService
         .updateProduct(editing.id.toString(), result)
         .subscribe({
@@ -56,7 +55,6 @@ export class AdminProductsComponent implements AfterViewInit {
           },
         });
     } else {
-      // Adicionar produto
       this.productsService.createProduct(result).subscribe({
         next: () => {
           this.snackBar.open('Produto adicionado com sucesso!', 'Fechar', {
@@ -113,7 +111,6 @@ export class AdminProductsComponent implements AfterViewInit {
           this.snackBar.open('Produto removido com sucesso!', 'Fechar', {
             duration: 2500,
           });
-          // O paginator do MatTableDataSource já cuida do reset automático
         },
         error: () => {
           this.snackBar.open('Erro ao remover produto!', 'Fechar', {

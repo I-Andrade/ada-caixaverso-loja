@@ -4,8 +4,8 @@ import { AuthService } from './core/auth/auth-service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  standalone: false,
   styleUrl: './app.scss',
+  standalone: false,
 })
 export class App {
   constructor() {}

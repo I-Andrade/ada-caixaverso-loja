@@ -48,6 +48,6 @@ export class Header implements OnInit {
   }
 
   async logout() {
-    await this.authService.logoutWithConfirm(this.router, PATHS.THIS);
+    await this.authService.logoutWithConfirm(this.router, PATHS.LOGIN);
   }
 }

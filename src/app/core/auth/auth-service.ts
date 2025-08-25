@@ -23,7 +23,6 @@ export class AuthService {
 
   private readonly apiUsers = environment.apiUsers;
 
-  // Usuário
   private user = signal<UserModel | null>(null);
   public isLoggedIn = computed(() => !!this.user());
   getUserFirstNameSignal = () =>
@@ -52,9 +51,6 @@ export class AuthService {
           localStorage.setItem('refresh_token', response.refresh_token);
         }),
         switchMap(() => this.fetchUser()),
-        tap(() => this.loading.set(false)),
-        // Tratamento de erro
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         tap({
           error: (err: any) => {
             this.loading.set(false);
@@ -66,7 +62,8 @@ export class AuthService {
               { duration: 3500 }
             );
           },
-        })
+        }),
+        tap(() => this.loading.set(false))
       );
   }
 

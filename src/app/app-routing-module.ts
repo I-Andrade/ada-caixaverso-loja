@@ -32,11 +32,10 @@ const routes: Routes = [
     redirectTo: PATHS.PRODUCTS,
     pathMatch: 'full',
   },
-  // {
-  //   path: PATHS.NOT_FOUND,
-  //   component: NotFoundComponent, // TODO: Implement a NotFoundComponent
-
-  // },
+  {
+    path: PATHS.NOT_FOUND,
+    redirectTo: PATHS.PRODUCTS,
+  },
 ];
 
 @NgModule({

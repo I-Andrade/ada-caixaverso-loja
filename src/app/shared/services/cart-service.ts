@@ -68,7 +68,6 @@ export class CartService {
     date: string;
     products: CartProduct[];
   } {
-    // Usa o userId do usuário logado, ou 0 se não estiver logado
     return {
       userId: this.authService.getUserSignal()()?.id ?? 0,
       date: new Date().toISOString().split('T')[0],
@@ -115,7 +114,6 @@ export class CartService {
     } else {
       this.cartItems.set([...items, { product, qty: 1 }]);
     }
-    // Atualiza na API
     if (this.cartId) {
       this.http
         .put(
@@ -221,12 +219,4 @@ export class CartService {
       this.loading.set(false);
     }
   }
-
-  finishPurchase() {
-    // Simula finalização: limpa carrinho e remove id
-    this.clearCart();
-    // Aqui você pode implementar lógica extra, como registrar pedido
-  }
-
-  // ...existing code...
 }
