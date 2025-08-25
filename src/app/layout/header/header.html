@@ -8,7 +8,7 @@
     <img src="logo.png" alt="Logotipo Loja CaixaVerso" class="h-10" />
     <span class="text-xl font-bold">{{ title }}</span>
   </div>
-  <div class="text-sm">
+  <div class="text-sm hidden sm:flex items-center">
     <span>{{ subtitle }}</span>
   </div>
   <nav class="flex space-x-4">
@@ -30,29 +30,57 @@
       class="relative ml-2"
       [routerLink]="[PATHS.BASE, PATHS.CART]"
       aria-label="Carrinho"
+      matTooltip="Ver carrinho"
     >
       <span class="material-icons text-2xl text-white">shopping_cart</span>
+      @if (cartCountSignal() > 0) {
       <span
-        *ngIf="cartCountSignal() > 0"
         class="absolute top-0 right-0 bg-amber-600 text-white rounded-full px-2 text-xs"
-        >{{ cartCountSignal() }}</span
       >
+        {{ cartCountSignal() }}
+      </span>
+      }
     </button>
     @if (isLoggedIn()) {
-    <div class="flex items-center gap-2">
-      <img
-        [src]="userSignal()?.avatar"
-        alt="mat-card-avatar"
-        class="h-8 w-8 rounded-full object-cover"
-      />
-      <span>{{ userFirstNameSignal() }}</span>
-      <button mat-button class="bg-slate-300" (click)="logout()">Sair</button>
+    <div class="relative items-center flex gap-2">
+      <button
+        class="p-0 border-0 bg-transparent cursor-pointer avatar-btn"
+        (click)="showUserMenu = !showUserMenu"
+        matTooltip="Ver perfil"
+      >
+        <img
+          [src]="userSignal()?.avatar"
+          alt="mat-card-avatar"
+          class="h-8 w-8 rounded-full object-cover"
+        />
+      </button>
+      @if (showUserMenu) {
+      <div
+        class="user-menu absolute right-3 top-3 mt-2 bg-white text-gray-800 rounded shadow-lg py-2 px-4 z-50 min-w-[120px] flex flex-col items-center"
+      >
+        <img
+          [src]="userSignal()?.avatar"
+          alt="mat-card-avatar"
+          class="h-10 w-10 rounded-full object-cover mb-2"
+        />
+        <span class="mb-2 font-semibold">{{ userFirstNameSignal() }}</span>
+        <button
+          mat-button
+          class="bg-slate-300"
+          (click)="logout()"
+          matTooltip="Sair da conta"
+        >
+          Sair
+        </button>
+      </div>
+      }
     </div>
     } @else {
     <button
       mat-button
       class="bg-slate-300"
       [routerLink]="[PATHS.BASE, PATHS.AUTH, PATHS.LOGIN]"
+      matTooltip="Entrar na conta"
     >
       Entrar
     </button>
