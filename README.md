@@ -1,6 +1,8 @@
 # Ada CaixaversoLoja
 
-<img src="public/favicon.ico" width="32" height="32" alt="Favicon" />
+<div align="center">
+  <img src="public/favicon.ico" width="64" height="64" alt="Favicon" />
+</div>
 
 Uma aplicação completa de e-commerce desenvolvida com Angular, Angular Material e Tailwind CSS. O projeto oferece funcionalidades para clientes e administradores, incluindo autenticação, gerenciamento de produtos, carrinho de compras, e interface responsiva para desktop e mobile.
 
@@ -73,10 +75,6 @@ Acesse a versão buildada e pronta para uso em:
 - Todos os serviços tratam erros e exibem mensagens amigáveis
 - O carrinho é sincronizado com o usuário logado
 - O layout se adapta automaticamente a diferentes tamanhos de tela
-
-## Favicon
-
-<img src="public/favicon.ico" width="32" height="32" alt="Favicon" />
 
 ---
 
